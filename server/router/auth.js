@@ -102,7 +102,7 @@ router.post('/signin', async (req, res) => {
             res.cookie("token", token, {
                 expires: new Date(Date.now() + 25892000000),
                 path: "/",
-                sameSite: "strict",
+                sameSite : process.env.NODE_ENV === "development" ? "strict" : "none",
                 httpOnly: true,
                 secure: true,
             });
