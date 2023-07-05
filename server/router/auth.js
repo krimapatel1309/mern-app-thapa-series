@@ -163,11 +163,20 @@ router.post('/contact', authenticate, async (req, res) => {
 });
 
 
-// Logout  ka page 
-router.get('/logout', (req, res) => {
+// Logout  ka page
+router.get("/logout", (req, res) => {
     // console.log(`Hello my Logout Page`);
-    res.clearCookie('token', { path: '/' });
-    res.status(200).send('User lOgout');
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        path: "/",
+        sameSite:
+            process.env.NODE_ENV === "development"
+                ? "strict"
+                : "none",
+        httpOnly: true,
+        secure: true,
+    });
+    res.status(200).send("User lOgout");
 });
 
 
